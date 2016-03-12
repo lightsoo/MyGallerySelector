@@ -48,8 +48,13 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_image);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_gallery);
         setSupportActionBar(toolbar);
+        //이걸로 기존에 뜨는 Title을 안보이게 한다.
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //백키가 나온다.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         init();
         //DB의 데이타를
         String[] from = {MediaStore.Images.Media.DATA};

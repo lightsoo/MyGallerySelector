@@ -9,6 +9,13 @@ import android.widget.RelativeLayout;
 
 import com.example.lightsoo.mygalleryselector.R;
 
+/**
+ * 갤러리에서 하나의 이미지들을 설정해주는거야
+ * view_gallery_image_item 레이아웃에 이미지뷰 2개가 있는데
+ * 기본적으로 gallery_image_item 이미지뷰에 사진들을 출력해주고
+ * 이후 선택이 되면 gallery_image_checked을 덮어씌워서 표현한다.
+ */
+
 public class GalleryImageView extends RelativeLayout implements Checkable {
 
     ImageView ivImage, ivChecked;

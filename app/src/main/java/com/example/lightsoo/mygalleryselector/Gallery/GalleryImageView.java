@@ -2,21 +2,24 @@ package com.example.lightsoo.mygalleryselector.Gallery;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.AttributeSet;
 import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.lightsoo.mygalleryselector.R;
 
-/**
- * Created by LG on 2016-03-11.
- */
 public class GalleryImageView extends RelativeLayout implements Checkable {
 
     ImageView ivImage, ivChecked;
 
     public GalleryImageView(Context context) {
         super(context);
+        init();
+    }
+
+    public GalleryImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         init();
     }
 

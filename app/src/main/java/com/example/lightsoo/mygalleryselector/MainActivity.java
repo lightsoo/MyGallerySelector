@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         btn_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent initent = new Intent(MainActivity.this, GalleryImageActivity.class);
-                startActivityForResult(initent, GalleryImageActivity.REQUEST_CODE_GALLERY);
+                Intent intent = new Intent(MainActivity.this, GalleryImageActivity.class);
+                startActivityForResult(intent, GalleryImageActivity.REQUEST_CODE_GALLERY);
             }
         });
     }

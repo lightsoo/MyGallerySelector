@@ -20,6 +20,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.lightsoo.mygalleryselector.MainActivity;
 import com.example.lightsoo.mygalleryselector.R;
 
@@ -42,7 +44,6 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
     //최대 선택갯수
     public static final int IMAGE_CHECK_THRESHOLD = 10;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +64,12 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
                     ImageView iv = (ImageView) view;
                     String path = cursor.getString(columnIndex);
                     String uri = "file://" + path;
-
-
+                    Glide.with(getApplicationContext())
+                            .load(uri)
+                            .crossFade()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .into(iv);
 //                    ImageLoader.getInstance().displayImage(uri.toString(), iv);
                     return true;
                 }
@@ -74,7 +79,6 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
         gridView.setAdapter(mAdapter);
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
         getSupportLoaderManager().initLoader(0, null, this);
-
 
         //사진 선택갯수
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,7 +103,6 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
                 }
             }
         });
-
     }
 
     public void init(){
@@ -137,6 +140,7 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
     //Loader 작업이 끝난후 결과 데이터를 어댑터에 저장한다.
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        dataColumnIndex = data.getColumnIndex(MediaStore.Images.Media.DATA);
         mAdapter.swapCursor(data);
     }
 

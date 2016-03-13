@@ -12,10 +12,6 @@
     tools:context="com.example.lightsoo.mygalleryselector.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello World!" />
 
 
     <Button
@@ -27,4 +23,21 @@
         android:layout_marginBottom="21dp"
         android:layout_gravity="center"
         android:text="갤러리" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_gallery">
+        <ListView
+            android:id="@+id/lv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

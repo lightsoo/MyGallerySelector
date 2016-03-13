@@ -16,12 +16,14 @@ import android.util.SparseBooleanArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.lightsoo.mygalleryselector.Data.ImageItem;
 import com.example.lightsoo.mygalleryselector.MainActivity;
 import com.example.lightsoo.mygalleryselector.R;
 
@@ -40,6 +42,7 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
     int dataColumnIndex = -1;
     SimpleCursorAdapter mAdapter;
     GridView gridView;
+    Button btn_ok;
 
     //최대 선택갯수
     public static final int IMAGE_CHECK_THRESHOLD = 10;
@@ -108,15 +111,38 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
                 }
             }
         });
+
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pictureAdd();
+            }
+        });
     }
 
     public void init(){
         gridView = (GridView)findViewById(R.id.gallery_image_grid);
-
+        btn_ok  =  (Button)findViewById(R.id.btn_ok);
     }
 
     public void pictureAdd(){
         SparseBooleanArray array = gridView.getCheckedItemPositions();
+/*
+        //여기서 객체를 넣은다음에 리턴해보자
+        List<ImageItem> items = new ArrayList<ImageItem>();
+
+        for (int index = 0; index < array.size(); index++){
+            int position = array.keyAt(index);
+            if(array.get(position)){
+                //어떻게 이렇게 커서로 변환이 가능한걸까?
+                Cursor c = (Cursor)gridView.getItemAtPosition(position);
+                String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
+//                items.setTitle();
+//                items.setImage(path);
+            }
+        }
+*/
         List<String> pathList = new ArrayList<String>();
         for (int index = 0; index < array.size(); index++){
             int position = array.keyAt(index);
@@ -131,6 +157,7 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
         Intent intent = new Intent(GalleryImageActivity.this, MainActivity.class);
         String[] paths = pathList.toArray(new String[pathList.size()]);
         intent.putExtra(MainActivity.INTENT_IMG_PATHS, paths);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         setResult(Activity.RESULT_OK, intent);
         finish();
@@ -155,16 +182,4 @@ public class GalleryImageActivity extends AppCompatActivity implements LoaderMan
         mAdapter.swapCursor(null);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                super.onBackPressed();
-                return true;
-            case R.id.menu_item_picture_add:
-                pictureAdd();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

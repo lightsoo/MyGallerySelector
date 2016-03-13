@@ -14,4 +14,11 @@
         android:text="MeetPeople"
          />
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:id="@+id/btn_ok"/>
+
 </android.support.v7.widget.Toolbar>
